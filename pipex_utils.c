@@ -102,7 +102,7 @@ int	ft_gen_words(char *str, char **words)
     return (1);
 } 
 
-char	**ft_gen_args(char *str)
+char	**pipex_parse_args(char *str)
 {
 	char	**args;
 	int		n_args;
@@ -120,28 +120,28 @@ char	**ft_gen_args(char *str)
 }
 
 
-int main(int argc, char **argv) {
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <string>\n", argv[0]);
-        return 1;
-    }
+// int main(int argc, char **argv) {
+//     if (argc != 2) {
+//         fprintf(stderr, "Usage: %s <string>\n", argv[0]);
+//         return 1;
+//     }
 
-    char **args = ft_gen_args(argv[1]);
+//     char **args = ft_gen_args(argv[1]);
 
-    if (!args) {
-        fprintf(stderr, "Error generating arguments\n");
-        return 1;
-    }
+//     if (!args) {
+//         fprintf(stderr, "Error generating arguments\n");
+//         return 1;
+//     }
 
-    printf("\n=== %d args ===\n", argc);
+//     printf("\n=== %d args ===\n", argc);
 
-    int i = 0;
-    while (args[i]) {
-        printf("======%s======\n", args[i]);
-        i++;
-    }
+//     int i = 0;
+//     while (args[i]) {
+//         printf("======%s======\n", args[i]);
+//         i++;
+//     }
 
-    ft_free_mem(args);
+//     ft_free_mem(args);
 
-    return 0;
-}
+//     return 0;
+// }

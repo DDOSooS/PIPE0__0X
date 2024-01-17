@@ -25,6 +25,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[++j])
 	    str[i + j] = s2[j];
 	str[i + j] = '\0';
-	printf("strjoun=%s==\n\n",str);
 	return (str);
 }

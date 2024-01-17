@@ -4,7 +4,7 @@ CC = cc
 AR = ar rcs
 RM = rm -rf 
 
-SRC = pipex_utils.c pipex.c
+SRC = pipex_utils.c pipex.c strjoin.c error_handler.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

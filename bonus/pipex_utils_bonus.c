@@ -102,7 +102,7 @@ int	ft_gen_words(char *str, char **words)
     return (1);
 } 
 
-char	**pipex_parse_args(char *str)
+char	**ft_pipex_parse_args(char *str)
 {
 	char	**args;
 	int		n_args;

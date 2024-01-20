@@ -1,4 +1,5 @@
 NAME = Pipe_X.a
+
 CFLAGS = -Wall -Wextra -Werror
 CC = cc
 AR = ar rcs
@@ -7,20 +8,28 @@ RM = rm -rf
 SRC = pipex_utils.c pipex.c strjoin.c error_handler.c
 OBJ = $(SRC:.c=.o)
 
+SRC_BNS = pipex_bonus.c 
+OBJ_BNS = $(SRC_BNS:.c=.o)
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(AR) $@ $^
 
-%.o: %.c
+bonus: $(OBJ) $(OBJ_BNS)
+		$(AR) $@ $<
+.c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(OBJ_BNS)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(bonus)
 
-re: fclean all
+re: fclean all 
 
-.PHONY: all clean fclean re
+# Use $(OBJ_BNS) instead of $< in the bonus rule
+
+
+.PHONY: all clean fclean re bonus

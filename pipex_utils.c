@@ -114,7 +114,7 @@ char	**pipex_parse_args(char *str)
 	if (! ft_gen_words(str, args))
 	{
 		ft_free_mem(args); 
-        //fff  ;;     
+        //fff  ;;     Z
         return (NULL);
 	}
 	return (args);

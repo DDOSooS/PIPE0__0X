@@ -13,4 +13,6 @@ char	**pipex_parse_args(char *str);
 void    ft_free_mem(char **str);
 int     ft_pipex(int argc,char **argv);
 char    *ft_strjoin(char *s1, char *s2);
+int     ft_pipex_bonus(int ac, char **av);
+void ft_error_handler(int i);
 #endif

@@ -1,7 +1,4 @@
-Makefile
-PIPE
-Pipe_X.a
-a.out
+AAAAAAAAAAAAAAAAAAAAAAAa.out
 bonus
 en.subject.pdf
 error_handler.c

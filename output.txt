@@ -1,16 +1,4 @@
-AAAAAAAAAAAAAAAAAAAAAAAa.out
-bonus
-en.subject.pdf
-error_handler.c
-error_handler.o
-input.txt
-mainc.c
-output.txt
-pipex.c
-pipex.h
-pipex.o
-pipex_utils.c
-pipex_utils.o
-strjoin.c
-strjoin.o
-test.c
+       valid_lft forever preferred_lft forever
+       valid_lft forever preferred_lft forever
+       valid_lft 75202sec preferred_lft 75202sec
+       valid_lft forever preferred_lft forever

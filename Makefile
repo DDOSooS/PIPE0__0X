@@ -5,7 +5,7 @@ CC = cc
 AR = ar rcs
 RM = rm -rf 
 
-SRC = pipex_utils.c pipex.c strjoin.c error_handler.c
+SRC = pipex_utils.c pipex.c strjoin.c error_handler.c ft_putstr.c
 OBJ = $(SRC:.c=.o)
 
 SRC_BNS = pipex_bonus.c 

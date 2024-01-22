@@ -1,108 +1,92 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/22 14:59:08 by aghergho          #+#    #+#             */
+/*   Updated: 2024/01/22 15:53:40 by aghergho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int ft_count_arg(char *str) 
+#include "pipex.h"
+
+int	ft_count_arg(char *str)
 {
-    int counter = 0;
-    int i = 0;
+	int	counter;
+	int	i;
 
-    while (str[i]) {
-        while (str[i] && str[i] == ' ')
-            i++;
-        if (str[i]) 
-            counter++;
-        while (str[i] && str[i] != ' ')
-            i++;
-        
-    }
-    return counter;
-}
-
-
-int	ft_count_len(char *str)
-{
-	int   len;
-
-    len = 0;
-    while (str[len] && str[len] != ' ')
-        len++;
-    return (len);
-}
-
-void ft_free_mem(char **str)
-{
-	int    i;
-
-    i = 0;
+	counter = 0;
+	i = 0;
 	while (str[i])
 	{
-        free(str[i]);
-        i++;
-    }
-	free(str);
-	// str = NULL;
+		while (str[i] && str[i] == ' ')
+			i++;
+		if (str[i])
+			counter++;
+		while (str[i] && str[i] != ' ')
+			i++;
+	}
+	return (counter);
 }
 
-// char *fr_gen_word(char *str, int len) {
-//     char *word = (char *)malloc(sizeof(char) * (len + 1));
-
-//     if (!word)
-//         return NULL;
-
-//     for (int i = 0; i < len; i++) {
-//         word[i] = str[i];
-//     }
-
-//     word[len] = '\0';
-
-//     return word;
-// }
-
-char *ft_gen_word(char *str,int len)
+void	ft_free_mem(char **str)
 {
-	char    *word;
-    int        i;
+	int		i;
 
-    i = 0;
-    word = malloc(sizeof(char) * (len + 1));
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
+
+char	*ft_gen_word(char *str, int len)
+{
+	char	*word;
+	int		i;
+
+	i = 0;
+	word = malloc(sizeof(char) * (len + 1));
 	if (!word)
-	    return (NULL);
-    while (i < len)
-    {
-        word[i] = str[i];
-        i++;
-    }
-    word[i] = '\0';
-    return (word);
+		return (NULL);
+	while (i < len)
+	{
+		word[i] = str[i];
+		i++;
+	}
+	word[i] = '\0';
+	return (word);
 }
 
 int	ft_gen_words(char *str, char **words)
 {
-    int  i;
-    int j;
-    int len;
+	int		i;
+	int		j;
+	int		len;
 
-    i = 0;
-    j = 0;
-    while (str[i])
-    {
-        while (str[i] && str[i] ==' ')
-            i++;
-        if (str[i])
-        {
-            len = ft_count_len(&str[i]);
-            words[j] = ft_gen_word(&str[i], len);
-            j++;
-            i += len;
-        }
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		while (str[i] && str[i] == ' ')
+			i++;
+		if (str[i])
+		{
+			len = ft_count_len(&str[i]);
+			words[j] = ft_gen_word(&str[i], len);
+			j++;
+			i += len;
+		}
+	}
+	words[j] = NULL;
+	return (1);
+}
 
-    }
-    words[j] = NULL;
-    return (1);
-} 
-
-char	**pipex_parse_args(char *str)
+char	**ft_pipex_parse_args(char *str)
 {
 	char	**args;
 	int		n_args;
@@ -110,17 +94,14 @@ char	**pipex_parse_args(char *str)
 	n_args = ft_count_arg(str);
 	args = (char **)malloc(sizeof(char *) * (n_args + 1));
 	if (!args)
-	    return (NULL);
+		return (NULL);
 	if (! ft_gen_words(str, args))
 	{
-		ft_free_mem(args); 
-        //fff  ;;     Z
-        return (NULL);
+		ft_free_mem(args);
+		return (NULL);
 	}
 	return (args);
 }
-
-
 // int main(int argc, char **argv) {
 //     if (argc != 2) {
 //         fprintf(stderr, "Usage: %s <string>\n", argv[0]);

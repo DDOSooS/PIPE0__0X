@@ -29,7 +29,4 @@ fclean: clean
 
 re: fclean all 
 
-# Use $(OBJ_BNS) instead of $< in the bonus rule
-
-
 .PHONY: all clean fclean re bonus

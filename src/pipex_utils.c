@@ -6,11 +6,11 @@
 /*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:59:08 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/22 15:53:40 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:47:54 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 int	ft_count_arg(char *str)
 {
@@ -102,28 +102,4 @@ char	**ft_pipex_parse_args(char *str)
 	}
 	return (args);
 }
-// int main(int argc, char **argv) {
-//     if (argc != 2) {
-//         fprintf(stderr, "Usage: %s <string>\n", argv[0]);
-//         return 1;
-//     }
 
-//     char **args = ft_gen_args(argv[1]);
-
-//     if (!args) {
-//         fprintf(stderr, "Error generating arguments\n");
-//         return 1;
-//     }
-
-//     printf("\n=== %d args ===\n", argc);
-
-//     int i = 0;
-//     while (args[i]) {
-//         printf("======%s======\n", args[i]);
-//         i++;
-//     }
-
-//     ft_free_mem(args);
-
-//     return 0;
-// }

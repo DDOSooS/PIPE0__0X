@@ -1,31 +1,20 @@
-NAME = Pipe_X.a
+NAME = pipex
 
 CFLAGS = -Wall -Wextra -Werror
 CC = cc
-AR = ar rcs
+
 RM = rm -rf 
-
-SRC = pipex_utils.c pipex.c strjoin.c error_handler.c ft_putstr.c
-OBJ = $(SRC:.c=.o)
-
-SRC_BNS = pipex_bonus.c 
-OBJ_BNS = $(SRC_BNS:.c=.o)
+SRC = src/pipex.c src/pipex_utils.c src/strjoin.c src/ft_putstr.c src/error_handler.c
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(AR) $@ $^
-
-bonus: $(OBJ) $(OBJ_BNS)
-		$(AR) $@ $<
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(SRC)
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
-	$(RM) $(OBJ) $(OBJ_BNS)
+	$(RM) $(NAME)
 
 fclean: clean
-	$(RM) $(NAME) $(bonus)
 
 re: fclean all 
 

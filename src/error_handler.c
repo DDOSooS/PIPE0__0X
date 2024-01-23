@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mainc.c                                            :+:      :+:    :+:   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:51:04 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/22 16:36:41 by aghergho         ###   ########.fr       */
+/*   Created: 2024/01/22 15:50:22 by aghergho          #+#    #+#             */
+/*   Updated: 2024/01/23 09:50:40 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-int main(int ac,char **av)
+#include "../includes/pipex.h"
+
+void	ft_error_handler(int i)
 {
- 	ft_pipex_init(ac, av);
-	return (0);
+	exit(i);
 }

@@ -6,7 +6,7 @@
 /*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:57:53 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/23 09:51:05 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/24 19:17:10 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_count_len(char *str)
 }
 
 int	ft_strlen(char *str)
+
 {
 	int	i;
 

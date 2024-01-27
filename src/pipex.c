@@ -6,86 +6,77 @@
 /*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:50:59 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/24 23:45:31 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/27 22:14:00 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int ft_handle_proc(int fd_input, int fd_output, char *cmd)
+void	ft_pipex(char *cmd)
 {
-    char **args;
+	int fd[2];
+	int pid;
 
-    args = ft_pipex_parse_args(cmd);
-    dup2(fd_input, STDIN_FILENO);
-    dup2(fd_output, STDOUT_FILENO);
-    char *full_path = "/bin/";
-    char *full_cmd = ft_strjoin(full_path, args[0]);
-    if (!full_cmd)
-    {
-        ft_free_mem(args);
-        return 0;
+	if (pipe(fd) == -1)
+	{
+        ft_putstr_fd("pipe error\n", 2);
+        return ;
     }
-    if (execve(full_cmd, args, NULL) == -1)
-    {
-        perror("execve");
-        ft_free_mem(args);
-        free(full_cmd);
-        return 0;
-    }
-    ft_free_mem(args);
-    return 1;
+	pid = fork();
+	if (!pid)
+	{
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[0]);
+		ft_handle_proc(cmd);
+		exit(0);	
+	}
+	else if (pid > 0)
+	{
+		waitpid(pid, NULL, 0);
+		close(fd[1]);
+		dup2(fd[1], STDIN_FILENO);
+	}
 }
 
-
-int pipex(int fd_input, int fd_output, char **av, int ac)
+int	ft_handle_fd_standard(int *fd_output, char **av, int ac)
 {
-    int i;
-    int pid;
-    int fd[2];
-
-    i = 0;
-    while (i < ac - 3)
-    {
-        pid = fork();
-        if (pipe(fd) == -1)
-            return 0;
-        if (pid == 0 && !ft_handle_proc(fd_input, fd[1], av[i + 2]))
-            return 0;
-        else
-        {
-            close(fd[1]);
-            fd_input = fd[0];
-            if (i + 1 == ac - 3)
-            {
-                fd[1] = fd_output;
-                fd_input = fd[0];
-            }
-            i++;
-        }
+	int	fd_inpnut;
+	
+	fd_inpnut = open(av[1], O_RDONLY);
+	if (fd_inpnut == -1)
+	{
+        ft_putstr("open error\n");
+        return (0);
     }
-    return 1;
+	*fd_output = open(av[ac - 1], O_WRONLY);
+	if (*fd_output == -1)
+	{
+        ft_putstr("open error\n");
+        return (0);
+    }
+	dup2(fd_inpnut, STDIN_FILENO);
+	return (1);
 }
 
-int main(int ac, char *av[])
+int main(int ac, char **av)
 {
-    int fd_input;
-    int fd_output;
+	int i;
+	int	fd_output;
 
-    if (ac != 5)
-    {
-        ft_putstr("Usage:./pipex <input> <cmd1> <cmd2> <output>");
-        return 1;
-    }
-    fd_input = open(av[1], O_RDONLY);
-    fd_output = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
-    if (fd_input == -1 || fd_output == -1)
-    {
-        perror("open");
-        return 1;
-    }
-    pipex(fd_input, fd_output, av, ac);
-    close(fd_input);
-    close(fd_output);
-    return 0;
+	i = 0;
+	if (ac < 4)
+	{
+		ft_putstr("Usage:./pipex <input> <cmd ...> <output>\n");
+        return (1);
+	}
+	if (! ft_handle_fd_standard(&fd_output, av, ac))
+		return (1);
+	while (i < ac - 3)
+	{
+		ft_pipex(av[i + 2]);
+		i++;		
+	}
+	dup2(fd_output, STDOUT_FILENO);
+	ft_handle_proc(av[ac - 1]);
+	return (0);
 }

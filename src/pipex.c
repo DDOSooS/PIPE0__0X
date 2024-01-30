@@ -6,11 +6,30 @@
 /*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:50:59 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/27 22:14:00 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/30 14:34:01 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+int	ft_handle_proc(char *cmd)
+{
+	char	**args;
+	char	*sh;
+	
+	args = ft_pipex_parse_args(cmd);
+	if (args == NULL)
+	    return (0);
+	sh = ft_strjoin("/bin/", args[0]);
+	if (execve(sh, args, NULL) == -1)
+	{
+		perror("execve");
+		ft_free_mem(args);
+        return (0);
+	}
+	ft_free_mem(args);
+	return (1);
+}
 
 void	ft_pipex(char *cmd)
 {
@@ -18,23 +37,20 @@ void	ft_pipex(char *cmd)
 	int pid;
 
 	if (pipe(fd) == -1)
-	{
-        ft_putstr_fd("pipe error\n", 2);
-        return ;
-    }
+		return ft_putstr("pipe error\n");
 	pid = fork();
 	if (!pid)
 	{
-		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
-		ft_handle_proc(cmd);
+		dup2(fd[1], STDOUT_FILENO);
+		if(! ft_handle_proc(cmd))
 		exit(0);	
 	}
 	else if (pid > 0)
 	{
 		waitpid(pid, NULL, 0);
 		close(fd[1]);
-		dup2(fd[1], STDIN_FILENO);
+		dup2(fd[0], STDIN_FILENO);
 	}
 }
 
@@ -63,20 +79,17 @@ int main(int ac, char **av)
 	int i;
 	int	fd_output;
 
-	i = 0;
-	if (ac < 4)
+	i = -1;
+	if (ac < 5)
 	{
 		ft_putstr("Usage:./pipex <input> <cmd ...> <output>\n");
         return (1);
 	}
 	if (! ft_handle_fd_standard(&fd_output, av, ac))
 		return (1);
-	while (i < ac - 3)
-	{
+	while (++i < ac - 4)
 		ft_pipex(av[i + 2]);
-		i++;		
-	}
 	dup2(fd_output, STDOUT_FILENO);
-	ft_handle_proc(av[ac - 1]);
+	ft_handle_proc(av[ac - 2]);
 	return (0);
 }

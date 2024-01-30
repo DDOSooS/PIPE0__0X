@@ -6,7 +6,7 @@
 /*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:56:14 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/22 15:23:19 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/30 09:52:45 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ char	**ft_pipex_parse_args(char *str);
 void	ft_error_handler(int i);
 void	ft_putstr(char *str);
 int		ft_count_len(char *str);
+void	ft_pipex(char *cmd);
 
 #endif

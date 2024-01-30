@@ -6,13 +6,13 @@
 /*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:59:08 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/23 15:47:54 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:26:38 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int	ft_count_arg(char *str)
+int	ft_count_arg(char *str, char c)
 {
 	int	counter;
 	int	i;
@@ -21,11 +21,11 @@ int	ft_count_arg(char *str)
 	i = 0;
 	while (str[i])
 	{
-		while (str[i] && str[i] == ' ')
+		while (str[i] && str[i] == c)
 			i++;
 		if (str[i])
 			counter++;
-		while (str[i] && str[i] != ' ')
+		while (str[i] && str[i] != c)
 			i++;
 	}
 	return (counter);
@@ -62,7 +62,7 @@ char	*ft_gen_word(char *str, int len)
 	return (word);
 }
 
-int	ft_gen_words(char *str, char **words)
+int	ft_gen_words(char *str, char **words, char c)
 {
 	int		i;
 	int		j;
@@ -72,11 +72,11 @@ int	ft_gen_words(char *str, char **words)
 	j = 0;
 	while (str[i])
 	{
-		while (str[i] && str[i] == ' ')
+		while (str[i] && str[i] == c)
 			i++;
 		if (str[i])
 		{
-			len = ft_count_len(&str[i]);
+			len = ft_count_len(&str[i], c);
 			words[j] = ft_gen_word(&str[i], len);
 			j++;
 			i += len;
@@ -86,16 +86,16 @@ int	ft_gen_words(char *str, char **words)
 	return (1);
 }
 
-char	**ft_pipex_parse_args(char *str)
+char	**ft_split(char *str, char c)
 {
 	char	**args;
 	int		n_args;
 
-	n_args = ft_count_arg(str);
+	n_args = ft_count_arg(str, c);
 	args = (char **)malloc(sizeof(char *) * (n_args + 1));
 	if (!args)
 		return (NULL);
-	if (! ft_gen_words(str, args))
+	if (! ft_gen_words(str, args, c))
 	{
 		ft_free_mem(args);
 		return (NULL);

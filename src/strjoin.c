@@ -6,18 +6,18 @@
 /*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:57:53 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/24 19:17:10 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:00:50 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int	ft_count_len(char *str)
+int	ft_count_len(char *str, char c)
 {
 	int	len;
 
 	len = 0;
-	while (str[len] && str[len] != ' ')
+	while (str[len] && str[len] != c)
 		len++;
 	return (len);
 }

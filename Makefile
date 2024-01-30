@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 CC = cc
 
 RM = rm -rf 
-SRC = src/pipex.c src/pipex_utils.c src/strjoin.c src/ft_putstr.c src/error_handler.c
+SRC = src/pipex.c src/pipex_utils.c src/get_path.c src/strjoin.c src/ft_putstr.c src/error_handler.c
 
 all: $(NAME)
 

@@ -1,60 +1,29 @@
-#include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
-#include <fcntl.h>
-# include <sys/wait.h>
+#include <string.h>
 
-/*
- * loop over commands by sharing
- * pipes.
- */
-static void
-pipeline(char ***cmd)
-{
-	int fd[2];
-	pid_t pid;
-	int fdd = 0;				/* Backup */
+int main(int argc, char *argv[], char *envp[]) {
+    // Pointer to iterate through the environment variables
+    char **env_var = envp;
+    char *path_value = NULL;
 
-	while (*cmd != NULL)
-	{
-		pipe(fd);
-		if ((pid = fork()) == -1)
-		{
-			perror("fork");
-			exit(1);
-		}
-		else if (pid == 0)
-		{
-			dup2(fdd, 0);
-			if (*(cmd + 1) != NULL)
-				dup2(fd[1], 1);
-			close(fd[0]);
-			execvp((*cmd)[0], *cmd);
-			exit(1);
-		}
-		else
-		{
-			wait(NULL);
-			close(fd[1]);
-			fdd = fd[0];
-			cmd++;
-		}
-	}
-}
+    // Iterate through each environment variable
+    while (*env_var != NULL) {
+        // Check if the current environment variable starts with "PATH="
+        if (strncmp(*env_var, "PATH=", 5) == 0) {
+            // Extract the value of the PATH variable (skip the first 5 characters)
+            path_value = *env_var + 5;
+            break;
+        }
+        // Move to the next environment variable
+        env_var++;
+    }
 
-/*
- * Compute multi-pipeline based
- * on a command list.
- */
-int
-main(int argc, char *argv[])
-{
-	char *ls[] = {"ls", "-al", NULL};
-	char *rev[] = {"rev", NULL};
-	char *nl[] = {"nl", NULL};
-	char *cat[] = {"cat", "-e", NULL};
-	char **cmds[]={ls, rev, nl, cat, NULL};
+    // If PATH variable was found, print its value
+    if (path_value != NULL) {
+        printf("%s\n", path_value);
+    } else {
+        printf("PATH environment variable not found.\n");
+    }
 
-	pipeline(cmds);
-	return (0);
+    return 0;
 }

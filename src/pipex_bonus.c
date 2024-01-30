@@ -6,7 +6,7 @@
 /*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:49:24 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/23 13:59:21 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:16:51 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void    ft_iterate_cmd(int fd_input, int fd_output, char **av, int ac)
     return ;
 }
 
-int main(int ac, char *av[])
+int main(int ac, char *av[], char *)
 {
     int fd_input, fd_output;
 

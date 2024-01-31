@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:30:25 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/31 14:06:03 by ddos             ###   ########.fr       */
+/*   Updated: 2024/01/31 17:22:30 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,15 @@ char    *ft_check_cmd_path(char *cmd, char *env)
     return (full_path);
 }
 
-char    *ft_format_cmd(char *cmd)
-{
-    int	i;
-
-	i = 0;
-	while (cmd[i] && cmd[i] == '/')
-		i++;
-	return(&cmd[--i]);
-}
-
 char *ft_get_cmd_path(char *cmd, char **env)
 {
     char    **paths;
     int     i;
     char    *cmd_path;
  
- 
-    cmd_path = ft_format_cmd(cmd);
-    if (access(cmd_path,  F_OK) != -1)
-        return (cmd_path);
+
+    if ( access(cmd,  F_OK) != -1)
+        return (cmd);
     paths = ft_get_paths(env);
     if (!paths)
         return (NULL);

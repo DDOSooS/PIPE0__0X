@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:56:14 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/31 10:22:42 by ddos             ###   ########.fr       */
+/*   Updated: 2024/01/31 11:32:39 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 
 int     ft_strlen(char *str);
-int     ft_strncmp(char *s1, char *s2);
+int     ft_strncmp(char *s1, char *s2, int n);
 void    ft_putstr(char *str);
 
 char	**ft_split(char *str, char c);

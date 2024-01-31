@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:50:59 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/30 19:03:57 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:05:49 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int	ft_handle_proc(char *cmd, char **env)
 {
 	char	**args;
 	char	*sh;
-	
+
 	args = ft_split(cmd, ' ');
 	if (args == NULL)
 	    return (0);
-	sh = ft_get_cmd_path(cmd, env);
+	sh = ft_get_cmd_path(args[0], env);
 	if (sh == NULL)
 	{
 		ft_free_mem(args);
@@ -28,8 +28,9 @@ int	ft_handle_proc(char *cmd, char **env)
 	}
 	if (execve(sh, args, NULL) == -1)
 	{
-		perror("execve");
 		ft_free_mem(args);
+		free(sh);
+		perror("execve");
         return (0);
 	}
 	ft_free_mem(args);

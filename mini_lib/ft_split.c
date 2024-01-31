@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:59:08 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/31 10:22:42 by ddos             ###   ########.fr       */
+/*   Updated: 2024/01/31 12:08:21 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,3 +107,16 @@ char	**ft_split(char *str, char c)
 	return (args);
 }
 
+// int main(int ac, char **av)
+// {
+// 	char **args;
+	
+// 	args = ft_split(av[1],' ');
+// 	for(int i=0; args[i] != NULL; i++)
+// 	{
+// 		printf("\nargs[%d]=%s=\n",i,args[i]);
+// 		free(args[i]);
+// 	}
+// 	free(args);
+// 	return (0);
+// }

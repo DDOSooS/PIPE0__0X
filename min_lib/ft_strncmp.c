@@ -3,10 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:09:38 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/30 19:09:39 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/31 10:22:24 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+int	ft_strncmp(char *s1, char s2, int n)
+{
+	int    i;
+
+    i = 0;
+    while (i < n && s1[i] == s2)
+    {
+        i++;
+    }
+    return (s1[i] - s2);
+}

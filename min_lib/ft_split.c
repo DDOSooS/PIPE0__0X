@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:59:08 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/30 17:26:38 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/31 10:22:42 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,14 @@ int	ft_gen_words(char *str, char **words, char c)
 			i++;
 		if (str[i])
 		{
-			len = ft_count_len(&str[i], c);
-			words[j] = ft_gen_word(&str[i], len);
+			len = 0;
+			while (str[i] && str[i] != c)
+			{
+                len++;
+                i++;
+            }
+			words[j] = ft_gen_word(&str[i - len], len);
 			j++;
-			i += len;
 		}
 	}
 	words[j] = NULL;

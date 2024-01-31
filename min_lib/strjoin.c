@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strjoin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:57:53 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/30 19:00:50 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/31 10:22:42 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,6 @@ int	ft_count_len(char *str, char c)
 	while (str[len] && str[len] != c)
 		len++;
 	return (len);
-}
-
-int	ft_strlen(char *str)
-
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

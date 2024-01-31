@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aghergho <aghergho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:30:25 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/30 19:04:52 by aghergho         ###   ########.fr       */
+/*   Updated: 2024/01/31 10:22:42 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char    **ft_get_paths(char **env)
     i = 0;
     while (env[i])
     {
-        if (strncmp(env[i], "PATH=", 5) == 0)
+        if (ft_strncmp(env[i], "PATH=", 5) == 0)
         {
             paths = ft_split(env[i], ':');
             if (!paths)

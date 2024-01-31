@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:30:25 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/31 17:22:30 by ddos             ###   ########.fr       */
+/*   Updated: 2024/01/31 17:27:20 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,13 @@ char *ft_get_cmd_path(char *cmd, char **env)
     {
         cmd_path = ft_check_cmd_path(cmd, paths[i]);
         if (cmd_path)
-            return (cmd_path);
+        {
+			ft_free_mem(paths);
+			return (cmd_path);
+		}
         i++;
     }
+	ft_free_mem(paths);
     return (NULL);
 }
 

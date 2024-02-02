@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:50:59 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/31 15:34:06 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/02 23:57:35 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_handle_proc(char *cmd, char **env)
 		ft_free_mem(args);
 		return (0);
 	}
-	if (execve(sh, args, NULL) == -1)
+	if (execve(sh, args, env) == -1)
 	{
 		ft_free_mem(args);
 		free(sh);

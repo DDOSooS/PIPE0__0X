@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:50:59 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/05 10:05:31 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/05 14:24:10 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,13 @@ int	ft_handle_input(int *fd_output, char **av, int ac)
         free(line);
         line = get_next_line(STDIN_FILENO);
     }
+	free(line);
 	*fd_output = open(av[ac - 1], O_WRONLY | O_TRUNC | O_CREAT);
 	if (*fd_output == -1)
 	    return (0);
 	close(tmp_fd);
 	dup2(tmp_fd, STDIN_FILENO);
-	// unlink(".tmp");
+	unlink(".tmp");
 	return (1);
 }
 
@@ -117,17 +118,13 @@ int main(int ac, char **av, char **env)
 		ft_putstr("Usage:./pipex <input> <cmd ...> <output>\n");
         return (1);
 	}
-	// printf("\n---%d--\n",ft_strncmp(av[1], "here_doc", 8));
 	if (!ft_strncmp(av[1], "here_doc", 8) )
 	{
-		// printf("\nherdoc\n");
-		// printf("\nhere_doc|%d--\n",ft_handle_input(&fd_output, av, ac));
 		if (!ft_handle_input(&fd_output, av, ac))
 			return (1);
 	}
 	else if (! ft_handle_fd_standard(&fd_output, av, ac))
 			return (1);
-	printf("\n-----------------\n");
 	while (++i < ac - 4)
 		ft_pipex(av[i + 2], env);
 	dup2(fd_output, STDOUT_FILENO);

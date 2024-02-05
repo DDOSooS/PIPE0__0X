@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:50:59 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/02 23:57:35 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/05 10:05:31 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,42 @@ int	ft_handle_fd_standard(int *fd_output, char **av, int ac)
 	fd_inpnut = open(av[1], O_RDONLY);
 	if (fd_inpnut == -1)
 	{
-        ft_putstr("open error\n");
+        ft_putstr("----open error\n");
         return (0);
     }
-	*fd_output = open(av[ac - 1], O_WRONLY);
+	*fd_output = open(av[ac - 1], O_WRONLY | O_TRUNC | O_CREAT);
 	if (*fd_output == -1)
 	{
-        ft_putstr("open error\n");
+        ft_putstr("open error---\n");
         return (0);
     }
 	dup2(fd_inpnut, STDIN_FILENO);
+	return (1);
+}
+
+
+
+int	ft_handle_input(int *fd_output, char **av, int ac)
+{
+	int		tmp_fd;
+	char	*line;
+
+	tmp_fd = open(".tmp", O_CREAT | O_RDWR, 0644); // 0644 is the file permission mode
+	if (tmp_fd == -1)
+		return (0);
+	line = get_next_line(STDIN_FILENO);
+	while (line && ft_strncmp(line, av[2], ft_strlen(av[2])) != 0)
+	{
+        write(tmp_fd, line, ft_strlen(line));
+        free(line);
+        line = get_next_line(STDIN_FILENO);
+    }
+	*fd_output = open(av[ac - 1], O_WRONLY | O_TRUNC | O_CREAT);
+	if (*fd_output == -1)
+	    return (0);
+	close(tmp_fd);
+	dup2(tmp_fd, STDIN_FILENO);
+	// unlink(".tmp");
 	return (1);
 }
 
@@ -91,8 +117,17 @@ int main(int ac, char **av, char **env)
 		ft_putstr("Usage:./pipex <input> <cmd ...> <output>\n");
         return (1);
 	}
-	if (! ft_handle_fd_standard(&fd_output, av, ac))
-		return (1);
+	// printf("\n---%d--\n",ft_strncmp(av[1], "here_doc", 8));
+	if (!ft_strncmp(av[1], "here_doc", 8) )
+	{
+		// printf("\nherdoc\n");
+		// printf("\nhere_doc|%d--\n",ft_handle_input(&fd_output, av, ac));
+		if (!ft_handle_input(&fd_output, av, ac))
+			return (1);
+	}
+	else if (! ft_handle_fd_standard(&fd_output, av, ac))
+			return (1);
+	printf("\n-----------------\n");
 	while (++i < ac - 4)
 		ft_pipex(av[i + 2], env);
 	dup2(fd_output, STDOUT_FILENO);

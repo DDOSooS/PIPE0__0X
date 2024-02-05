@@ -6,11 +6,11 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:59:08 by aghergho          #+#    #+#             */
-/*   Updated: 2024/01/31 12:08:21 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/05 15:52:24 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+# include "../includes/pipex.h"
 
 int	ft_count_arg(char *str, char c)
 {
@@ -33,7 +33,7 @@ int	ft_count_arg(char *str, char c)
 
 void	ft_free_mem(char **str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -79,9 +79,9 @@ int	ft_gen_words(char *str, char **words, char c)
 			len = 0;
 			while (str[i] && str[i] != c)
 			{
-                len++;
-                i++;
-            }
+				len++;
+				i++;
+			}
 			words[j] = ft_gen_word(&str[i - len], len);
 			j++;
 		}
@@ -106,17 +106,3 @@ char	**ft_split(char *str, char c)
 	}
 	return (args);
 }
-
-// int main(int ac, char **av)
-// {
-// 	char **args;
-	
-// 	args = ft_split(av[1],' ');
-// 	for(int i=0; args[i] != NULL; i++)
-// 	{
-// 		printf("\nargs[%d]=%s=\n",i,args[i]);
-// 		free(args[i]);
-// 	}
-// 	free(args);
-// 	return (0);
-// }

@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:50:59 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/05 15:42:40 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/10 11:46:33 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,14 @@ void	ft_pipex(char *cmd, char **env)
 	pid = fork();
 	if (!pid)
 	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
+		//funct(1)
 		if(! ft_handle_proc(cmd, env))
 			exit(0);	
 	}
 	else if (pid > 0)
 	{
 		waitpid(pid, NULL, 0);
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
+		//funct(1)
 	}
 }
 
@@ -110,6 +108,7 @@ int	main(int ac, char **av, char **env)
 	int	i;
 	int	fd_output;
 
+	
 	i = -1;
 	if (ac < 5)
 	{

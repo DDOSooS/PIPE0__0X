@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:56:14 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/04 02:43:13 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/11 15:05:49 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@
 # include <sys/wait.h>
 # include <limits.h>
 
+typedef struct cmds
+{
+    char        *cmd;
+    struct cmds *next;
+}       t_cmd;
+
 int     ft_strlen(char *str);
 int     ft_strncmp(char *s1, char *s2, int n);
 void    ft_putstr(char *str);
@@ -31,7 +37,7 @@ void	ft_free_mem(char **str);
 char	*ft_strjoin(char *s1, char *s2);
 
 // int		ft_pipex_init(int ac, char **av);
-void	ft_pipex(char *cmd, char **env);
+void	ft_pipex(t_cmd *head, char **env, int fd_out);
 void	ft_error_handler(int i);
 char    *ft_get_cmd_path(char *cmd, char **env);
 

@@ -1,9 +1,0 @@
-dechet
-gnl
-includes
-input.txt
-Makefile
-mini_lib
-output.txt
-pipex
-src

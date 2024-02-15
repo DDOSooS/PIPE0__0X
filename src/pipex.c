@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 09:50:59 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/10 11:46:33 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/14 17:28:47 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,14 @@ void	ft_pipex(char *cmd, char **env)
 		return ft_putstr("pipe error\n");
 	pid = fork();
 	if (!pid)
-	{
-		//funct(1)
+	
 		if(! ft_handle_proc(cmd, env))
 			exit(0);	
 	}
 	else if (pid > 0)
 	{
 		waitpid(pid, NULL, 0);
-		//funct(1)
+		return;
 	}
 }
 
@@ -83,7 +82,7 @@ int	ft_handle_input(int *fd_output, char **av, int ac)
 	int		tmp_fd;
 	char	*line;
 
-	tmp_fd = open(".tmp", O_CREAT | O_RDWR, 0644); // 0644 is the file permission mode
+	tmp_fd = open(".tmp", O_CREAT | O_RDWR, 0644); 
 	if (tmp_fd == -1)
 		return (0);
 	line = get_next_line(STDIN_FILENO);

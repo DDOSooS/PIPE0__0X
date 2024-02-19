@@ -6,11 +6,12 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:22:04 by ddos              #+#    #+#             */
-/*   Updated: 2024/02/15 18:22:59 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/19 20:56:06 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+#include <string.h>
 
 t_cmd	*ft_new_node(char *str)
 {
@@ -80,75 +81,90 @@ t_cmd	*ft_gen_cmds(int ac, char **av)
     return (cmd);
 }
 
-int ft_handle_standard(int fd_input, int fd_out)
+int ft_handle_standard(int fd_input, int fd_output)
 {
-    op
+    if(fd_input < 0 || fd_output < 0)
+        return (0);
+    dup2(fd_input, STDIN_FILENO);
+    dup2(fd_output, STDOUT_FILENO);
+	close(fd_input);
+	close(fd_output);
+    return (1);
 }
 
-void ft_execut_cmd(t_cmd *cmd, char **env, char *fd_input, char *fd_out)
+void ft_execute_cmd(t_cmd *cmd, char **env)
 {
     char    *sh_path;
     char    **args;
 
-    if (!ft_handle_standard(fd_input, fd_out))
-        return ;
-    sh_path = ft_get_cmd_path(cmd->cmd, env);
-    if (!sh_path)
-        return ;
-    args = ft_get_args(cmd->cmd);
+    // if (!ft_handle_standard(fd_input, fd_out))
+    //     return ;
+    // printf("\n===(%s)===\n",cmd->cmd);
+    args = ft_split(cmd->cmd, ' ');
     if (!args)
-    {
-        free(sh_path);
-        return ;
-    }
-    if(exeve(sh_path, args, env) == -1)
+        return ft_free_mem(args);
+    sh_path = ft_get_cmd_path(args[0], env);
+    if(!sh_path || execve(sh_path, args, env) == -1)
     {
         free(sh_path);
         free(args);
         return ;
     }
-    ft_free_mem(args);
-    free(sh_path);
     return ;
 }
 
-void ft_pipex(t_cmd *cmds, char **env, char *fd_input, char *fd_out)
-{
-    int     fd[2];
-    pid_t   pid;
-    int     status;
+void ft_pipex(t_cmd *cmds, char **env, int fd_input, int fd_out) {
+    int fd[2];
+    pid_t pid;
 
     pipe(fd);
     pid = fork();
-    if (!pid)
-        ft_execute_cmd(cmds->cmd, env, fd_input, fd[1]);
-    else if (pid > 0)
-    {
-        close(fd[1]);
-        ft_execute_cmd(cmds->next, env, fd[0], fd_out);
+	if (pid == 0)
+	{
         close(fd[0]);
-        waitpid(pid, &status, 0);
+        ft_handle_standard(fd_input, fd[1]);
+        ft_execute_cmd(cmds, env);
     }
-    close(fd_out);
-    close(fd_input);
+	else
+	{
+        close(fd[1]);
+        ft_handle_standard(fd[0], fd_out);
+        pid = fork();
+   		if (pid == 0)
+            ft_execute_cmd(cmds->next, env);
+        else
+		{
+            wait(NULL); 
+            wait(NULL);
+            close(fd_out);
+            close(fd[0]);
+			close(fd[1]);
+        }
+    }
 }
 
-int main(int ac, char *av)
+int main(int ac, char **av, char **env)
 {
-    t_cmd   *cmds;
+    t_cmd *cmds;
+    int fd_input;
+    int fd_out;
     
-    if (ac < 5)
-    {
-        ft_putstr_fd("Usage:./pipex <input> <cmd1> <cmd2> <output>\n", 2);
-        return (1);
-    }
+	if (ac < 5)
+	{
+		ft_putstr("Usage:./pipex <input> <cmd1> <cmd2> <output>\n");
+		return 1;
+	}
     cmds = ft_gen_cmds(ac, av);
     if (!cmds)
-    {
-        ft_putstr_fd("Error: malloc\n", 2);
-        ft_free_cmds(cmds);
-        return (1);
+	{
+        ft_putstr("Error: malloc\n");
+        return 1;
     }
-    ft_pipex(cmds, env, av[1], av[ac - 1]);
-    return (0);
+    fd_input = open(av[1], O_RDONLY);
+    fd_out = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    ft_pipex(cmds, env, fd_input, fd_out);
+    close(fd_input);
+    close(fd_out);
+    ft_free_cmds(cmds);
+    return 0;
 }

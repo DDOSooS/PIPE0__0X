@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:56:14 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/15 17:54:37 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/19 17:08:51 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	ft_free_mem(char **str);
 char	*ft_strjoin(char *s1, char *s2);
 
 // int		ft_pipex_init(int ac, char **av);
-void	ft_pipex(t_cmd *head, char **env, int fd_out);
+// void	ft_pipex(t_cmd *head, char **env, int fd_out);
+void    ft_pipex(t_cmd *cmds, char **env, int fd_input, int fd_out);
 void	ft_error_handler(int i);
 char    *ft_get_cmd_path(char *cmd, char **env);
 

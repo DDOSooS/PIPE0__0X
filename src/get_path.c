@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:30:25 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/05 15:47:17 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/19 17:27:29 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_get_cmd_path(char *cmd, char **env)
 	int		i;
 	char	*cmd_path;
  
-	if ( access(cmd,  F_OK) != -1)
+	if (access(cmd,  F_OK) != -1)
 		return (cmd);
 	paths = ft_get_paths(env);
 	if (!paths)
@@ -79,5 +79,6 @@ char	*ft_get_cmd_path(char *cmd, char **env)
 		i++;
 	}
 	ft_free_mem(paths);
+	printf("\n%s:command not found\n", cmd);
 	return (NULL);
 }

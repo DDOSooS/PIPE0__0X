@@ -135,25 +135,24 @@ void ft_pipex(t_cmd *cmds, char **env, int fd_input, int fd_out)
     pid_t pid;
     pid_t pid2;
     
-    pipe(fd);
-    pid = fork();
-    if (!pid)
-        ft_execute_cmd(cmds, env, fd, fd_input);
-    else
-    {
-        if (cmds->next != NULL)
+	pipe(fd);
+	pid = fork();
+	if (!pid)
+		ft_execute_cmd(cmds, env, fd, fd_input);
+	else
+	{	
+		if (cmds->next != NULL)
 		{
-            pid2 = fork();
-            if (!pid2)
-                ft_execute_cmd(cmds->next, env, fd, fd_out);
+			pid2 = fork();
+			if (!pid2)
+				ft_execute_cmd(cmds->next, env, fd, fd_out);
 		}
-        close(fd[1]);
-        close(fd[0]);
-        wait(NULL);
-        wait(NULL);
-    }
+		close(fd[1]);
+		close(fd[0]);
+		wait(NULL);
+		wait(NULL);
+	}
 }
-
 
 int main(int ac, char **av, char **env)
 {

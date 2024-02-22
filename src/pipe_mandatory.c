@@ -67,7 +67,7 @@ t_cmd	*ft_gen_cmds(int ac, char **av)
 	
 	cmd = NULL;
     i = 2;
-	while (i < ac)
+	while (i < ac - 1)
 	{
 		new = ft_new_node(av[i]);
 		if (!new)
@@ -77,34 +77,50 @@ t_cmd	*ft_gen_cmds(int ac, char **av)
 		}
 		ft_add_back(&cmd, new);
 		i++;
-	}
+	};
     return (cmd);
 }
 
-int ft_handle_standard(int fd_input, int fd_output)
+void	ft_42dup(int fd_in, int fd_out, int fd1, int fd2)
 {
-    if(fd_input < 0 || fd_output < 0)
-        return (0);
-    dup2(fd_input, STDIN_FILENO);
-    dup2(fd_output, STDOUT_FILENO);
-	close(fd_input);
-	close(fd_output);
-    return (1);
+	dup2(fd_in, STDIN_FILENO);
+	dup2(fd_out, STDOUT_FILENO);
+	close(fd1);
+	close(fd2);
 }
 
-void ft_execute_cmd(t_cmd *cmd, char **env)
+int ft_handle_standard(t_cmd *cmd, int *fd, int fd1)
+{
+	if (cmd->next != NULL)
+	{
+		if (fd1 != -1)
+			ft_42dup(fd1, fd[1], fd[0], fd1);
+		else
+			return (0);
+	}
+	else
+	{
+		if (fd1 != -1)
+			ft_42dup(fd[0], fd1, fd[1], fd[0]);
+		else
+			return (0);
+	}
+	return (1);
+}
+
+void ft_execute_cmd(t_cmd *cmd, char **env,int *fd, int fd1)
 {
     char    *sh_path;
     char    **args;
 
-    // if (!ft_handle_standard(fd_input, fd_out))
-    //     return ;
-    // printf("\n===(%s)===\n",cmd->cmd);
+	if (! ft_handle_standard(cmd, fd, fd1))
+		return ;
+
     args = ft_split(cmd->cmd, ' ');
     if (!args)
         return ft_free_mem(args);
     sh_path = ft_get_cmd_path(args[0], env);
-    if(!sh_path || execve(sh_path, args, env) == -1)
+	if(!sh_path || execve(sh_path, args, env) == -1)
     {
         free(sh_path);
         free(args);
@@ -113,35 +129,31 @@ void ft_execute_cmd(t_cmd *cmd, char **env)
     return ;
 }
 
-void ft_pipex(t_cmd *cmds, char **env, int fd_input, int fd_out) {
+void ft_pipex(t_cmd *cmds, char **env, int fd_input, int fd_out)
+{
     int fd[2];
     pid_t pid;
-
+    pid_t pid2;
+    
     pipe(fd);
     pid = fork();
-	if (pid == 0)
-	{
-        close(fd[0]);
-        ft_handle_standard(fd_input, fd[1]);
-        ft_execute_cmd(cmds, env);
-    }
-	else
-	{
-        close(fd[1]);
-        ft_handle_standard(fd[0], fd_out);
-        pid = fork();
-   		if (pid == 0)
-            ft_execute_cmd(cmds->next, env);
-        else
+    if (!pid)
+        ft_execute_cmd(cmds, env, fd, fd_input);
+    else
+    {
+        if (cmds->next != NULL)
 		{
-            wait(NULL); 
-            wait(NULL);
-            close(fd_out);
-            close(fd[0]);
-			close(fd[1]);
-        }
+            pid2 = fork();
+            if (!pid2)
+                ft_execute_cmd(cmds->next, env, fd, fd_out);
+		}
+        close(fd[1]);
+        close(fd[0]);
+        wait(NULL);
+        wait(NULL);
     }
 }
+
 
 int main(int ac, char **av, char **env)
 {
@@ -159,12 +171,10 @@ int main(int ac, char **av, char **env)
 	{
         ft_putstr("Error: malloc\n");
         return 1;
-    }
+	}
     fd_input = open(av[1], O_RDONLY);
     fd_out = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
     ft_pipex(cmds, env, fd_input, fd_out);
-    close(fd_input);
-    close(fd_out);
     ft_free_cmds(cmds);
     return 0;
 }

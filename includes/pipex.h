@@ -31,6 +31,7 @@ typedef struct cmds
 int     ft_strlen(char *str);
 int     ft_strncmp(char *s1, char *s2, int n);
 void    ft_putstr(char *str);
+void    ft_putstr_fd(char *str, int fd);
 
 char	**ft_split(char *str, char c);
 void	ft_free_mem(char **str);

@@ -115,7 +115,6 @@ void ft_execute_cmd(t_cmd *cmd, char **env,int *fd, int fd1)
 
 	if (! ft_handle_standard(cmd, fd, fd1))
 		return ;
-
     args = ft_split(cmd->cmd, ' ');
     if (!args)
         return ft_free_mem(args);
@@ -154,6 +153,29 @@ void ft_pipex(t_cmd *cmds, char **env, int fd_input, int fd_out)
 	}
 }
 
+char	ft_handle_input(char **av, int *fd_input)
+{
+	int		tmp_fd;
+	char	*line;
+
+	tmp_fd = open(".tmp", O_CREAT | O_RDWR, 0644); 
+	if (tmp_fd == -1)
+		return (0);
+	line = get_next_line(STDIN_FILENO);
+	while (line && ft_strncmp(line, av[2], ft_strlen(av[2])) != 0)
+	{
+		write(tmp_fd, line, ft_strlen(line));
+		free(line);
+		line = get_next_line(STDIN_FILENO);
+	}
+	free(line);
+	close(tmp_fd);
+	return (1);
+}
+
+
+
+
 int main(int ac, char **av, char **env)
 {
     t_cmd *cmds;
@@ -167,11 +189,14 @@ int main(int ac, char **av, char **env)
 	}
     cmds = ft_gen_cmds(ac, av);
     if (!cmds)
-	{
-        ft_putstr("Error: malloc\n");
         return 1;
+	if (ft_strncmp("here_doc", av[1], 6) == 0 &&  )	
+	{
+		
+
 	}
-    fd_input = open(av[1], O_RDONLY);
+    else
+		fd_input = open(av[1], O_RDONLY);
     fd_out = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
     ft_pipex(cmds, env, fd_input, fd_out);
     ft_free_cmds(cmds);

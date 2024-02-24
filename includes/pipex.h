@@ -28,6 +28,15 @@ typedef struct cmds
     struct cmds *next;
 }       t_cmd;
 
+typedef struct pipes
+{
+    t_cmd           *cmds;
+    int             fd_input;
+    int             fd_output;
+    struct pipes   *next;
+}   t_pipe;
+
+
 int     ft_strlen(char *str);
 int     ft_strncmp(char *s1, char *s2, int n);
 void    ft_putstr(char *str);

@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:56:14 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/26 06:49:19 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/26 17:44:05 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void    ft_pipex(t_cmd *cmds, char **env, int fd_input, int fd_out);
 t_cmd	*ft_gen_cmds(int ac, char **av);
 void	ft_free_cmds(t_cmd *head);
 void	ft_42dup(int fd_in, int fd_out, int fd1, int fd2);
-void	ft_error_handler(int i);
 char    *ft_get_cmd_path(char *cmd, char **env);
 
 # define BUFFER_SIZE 50

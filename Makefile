@@ -20,7 +20,7 @@ SRC = 	src/pipe_mandatory.c src/get_path.c src/pipe_utils.c  \
 
 OBJ = $(SRC:.c=.o)
 
-SRC_BNS = src/pipe_bonus.c src/get_path.c src/pipe_utils.c  \
+SRC_BNS = src/pipe_bonus.c src/get_path.c src/pipe_utils.c src/pipe_utils_bonus.c  \
 		mini_lib/ft_strlen.c mini_lib/ft_strncmp.c mini_lib/ft_putstr.c \
 		mini_lib/ft_strjoin.c mini_lib/ft_split.c mini_lib/ft_putstr_fd.c  mini_lib/ft_strdup.c \
 		gnl/get_next_line.c gnl/get_next_line_utils.c
@@ -78,8 +78,8 @@ $(FT_PRINTF_LIB):
 clean:
 	$(RM) $(OBJ) $(OBJ_BNS)
 	$(MAKE) -C $(FT_PRINTF_DIR) clean
-fclean: clean
-	$(RM) $(NAME)
+fclean: 
+	$(RM) $(NAME) $(OBJ) $(OBJ_BNS)
 	$(MAKE) -C $(FT_PRINTF_DIR) fclean
 
 re: fclean all 

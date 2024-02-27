@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:38:38 by ddos              #+#    #+#             */
-/*   Updated: 2024/02/26 06:44:04 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/27 15:15:40 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_cmd	*ft_new_node(char *str)
 }
 
 void	ft_add_back(t_cmd **head, t_cmd *cmd)
-{ 
+{
 	t_cmd	*tmp;
 	
 	if (!*head)

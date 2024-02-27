@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:56:14 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/26 17:44:05 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/27 17:23:30 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <limits.h>
+#include "../ft_printf/ft_printf.h"
 
 typedef struct cmds
 {
     char        *cmd;
+    int         in_flag;
     struct cmds *next;
 }       t_cmd;
 
@@ -39,7 +41,7 @@ typedef struct pipes
 
 int     ft_strlen(char *str);
 int     ft_strncmp(char *s1, char *s2, int n);
-void    ft_putstr(char *str);
+// void    ft_putstr(char *str);
 char    *ft_strdup(char *str);
 void    ft_putstr_fd(char *str, int fd);
 void	ft_free_mem(char **str);

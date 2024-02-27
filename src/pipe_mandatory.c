@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:22:04 by ddos              #+#    #+#             */
-/*   Updated: 2024/02/26 06:47:23 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/27 17:21:54 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,29 +76,6 @@ void ft_pipex(t_cmd *cmds, char **env, int fd_input, int fd_out)
 	}
 }
 
-// char	ft_handle_input(char **av)
-// {
-// 	int		tmp_fd;
-// 	char	*line;
-
-// 	tmp_fd = open(".tmp", O_CREAT | O_RDWR, 0644); 
-// 	if (tmp_fd == -1)
-// 		return (0);
-// 	line = get_next_line(STDIN_FILENO);
-// 	while (line && ft_strncmp(line, av[2], ft_strlen(av[2])) != 0)
-// 	{
-// 		write(tmp_fd, line, ft_strlen(line));
-// 		free(line);
-// 		line = get_next_line(STDIN_FILENO);
-// 	}
-// 	free(line);
-// 	close(tmp_fd);
-// 	return (1);
-// }
-
-
-
-
 int main(int ac, char **av, char **env)
 {
     t_cmd *cmds;
@@ -107,7 +84,7 @@ int main(int ac, char **av, char **env)
     
 	if (ac < 5)
 	{
-		ft_putstr("Usage:./pipex <input> <cmd1> <cmd2> <output>\n");
+		ft_printf("Usage:./pipex <input> <cmd1> <cmd2> <output>\n");
 		return 1;
 	}
     cmds = ft_gen_cmds(ac, av);

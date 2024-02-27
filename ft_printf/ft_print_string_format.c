@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_printf_string.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:24:39 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/27 17:22:37 by ddos             ###   ########.fr       */
+/*   Created: 2023/12/06 09:18:24 by ddos              #+#    #+#             */
+/*   Updated: 2023/12/06 11:48:06 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "ft_printf.h"
 
-void	ft_putstring(char *str)
+void	ft_putchar(char c, int *counter)
 {
-	int	i;
+	(*counter)++;
+	write (1, &c, 1);
+}
 
-	i = -1;
-	while (str[++i])
-		write(1, &str[i], 1);
+void	ft_putstr(const char *str, int *counter)
+{
+	int		i;
+
+	if (!str)
+		return (ft_putstr("(null)", counter));
+	i = 0;
+	while (str[i])
+		ft_putchar(str[i++], counter);
 }

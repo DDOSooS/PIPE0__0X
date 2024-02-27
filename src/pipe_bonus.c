@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 09:18:54 by ddos              #+#    #+#             */
-/*   Updated: 2024/02/27 17:15:31 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/27 17:36:46 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int ft_handle_stand_input(t_cmd *head, char *io_file, int flag)
     if (flag)
     {
 		io_fd = open(".tmp" , O_RDWR | O_CREAT , 0644);
-		if(io_fd || ! ft_handle_herdoc_input(io_file, io_fd))
+		if(io_fd == -1 || ! ft_handle_herdoc_input(io_file, io_fd))
 			return (0);
 		dup2(io_fd, STDIN_FILENO);
 		close(io_fd);
@@ -176,7 +176,7 @@ int main(int ac, char **av, char **envp)
     if (!ft_strncmp(av[1], "here_doc", 8))
     {
         if (! ft_handle_stand_input(cmds, av[2], 1))
-            return 0;
+            ft_printf("errooor ;)");
     }
     else
         ft_handle_stand_input(cmds, av[1], 0);

@@ -6,25 +6,24 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 09:18:54 by ddos              #+#    #+#             */
-/*   Updated: 2024/02/27 20:32:21 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/28 23:15:37 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-
 int ft_handle_stand_input(t_cmd *head, char *io_file, int flag)
 {
-    int     io_fd;
+    int io_fd;
 
     if (flag)
     {
-		io_fd = open(".tmp" , O_RDWR | O_CREAT , 0644);
-		if(io_fd == -1 || ! ft_handle_herdoc_input(io_file, io_fd))
-			return (0);
-		dup2(io_fd, STDIN_FILENO);
-		close(io_fd);
-		unlink(".tmp");
+        io_fd = open(".tmp", O_RDWR | O_CREAT, 0644);
+        if (io_fd == -1 || !ft_handle_herdoc_input(io_file, io_fd))
+            return (0);
+        dup2(io_fd, STDIN_FILENO);
+        close(io_fd);
+        unlink(".tmp");
     }
     else
     {
@@ -35,7 +34,7 @@ int ft_handle_stand_input(t_cmd *head, char *io_file, int flag)
             return ft_input_error(head->cmd, io_file);
         }
         dup2(io_fd, STDIN_FILENO);
-		close(io_fd);  
+        close(io_fd);
     }
     return (1);
 }
@@ -62,32 +61,32 @@ int ft_handle_output(int *fd, char *output)
 
 void ft_execute_cmd(t_cmd *cmd, char **envp, int *fd, char *output)
 {
-    char    **args;
-    char    *sh_cmd;
+    char **args;
+    char *sh_cmd;
 
     if (cmd->in_flag && cmd->in_flag == -1)
-        return ;
-    if (! ft_handle_output(fd, output))
-        return ;
+        return;
+    if (!ft_handle_output(fd, output))
+        return;
     args = ft_split(cmd->cmd, ' ');
-    if (! args)
+    if (!args)
         return ft_error(10);
     sh_cmd = ft_get_cmd_path(args[0], envp);
-    if (! sh_cmd)
+    if (!sh_cmd)
         return ft_free_mem(args);
     if (execve(sh_cmd, args, envp) == -1)
     {
         ft_free_mem(args);
         free(sh_cmd);
         ft_error(11);
-        return ;
+        return;
     }
 }
 
-void    ft_pipex_bonus(t_cmd *cmds, char **envp, char *output)
+void ft_pipex_bonus(t_cmd *cmds, char **envp, char *output)
 {
-    int	fd[2];
-	int pid;
+    int fd[2];
+    int pid;
 
     if (cmds == NULL)
         exit(0);
@@ -103,27 +102,27 @@ void    ft_pipex_bonus(t_cmd *cmds, char **envp, char *output)
         {
             dup2(fd[0], STDIN_FILENO);
             close(fd[1]);
-            ft_pipex_bonus(cmds->next,envp , output);    
+            ft_pipex_bonus(cmds->next, envp, output);
         }
-        ft_42close(fd);        
+        ft_42close(fd);
     }
 }
 
 int main(int ac, char **av, char **envp)
 {
-    t_cmd   *cmds;
-    
+    t_cmd *cmds;
+
     if (ac < 5)
     {
         ft_printf(";) try again :  ./pipex in_file cmd1 cmd2 out_file");
         return (1);
     }
     cmds = ft_gen_cmds(ac, av);
-    if (! cmds)
+    if (!cmds)
         return (0);
     if (!ft_strncmp(av[1], "here_doc", 8))
     {
-        if (! ft_handle_stand_input(cmds, av[2], 1))
+        if (!ft_handle_stand_input(cmds, av[2], 1))
             return (0);
     }
     else

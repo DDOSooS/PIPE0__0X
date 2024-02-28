@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 06:38:38 by ddos              #+#    #+#             */
-/*   Updated: 2024/02/28 23:14:37 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/28 23:34:48 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,16 @@ t_cmd *ft_gen_cmds(int ac, char **av)
 	return (cmd);
 }
 
-void ft_42dup(int fd_in, int fd_out, int fd1, int fd2)
+void ft_error(int n, char *error)
 {
-	dup2(fd_in, STDIN_FILENO);
-	dup2(fd_out, STDOUT_FILENO);
-	close(fd1);
-	close(fd2);
+    if (n == 10)
+        ft_putstr_fd(error, 2);
+    else if (n == 11)
+        ft_putstr_fd(error, 2);
+    else if (n == 12)
+    {
+        	ft_putstr_fd("zsh: command not found:",2);
+        	ft_putstr_fd(error, 2);
+            exit(EXIT_FAILURE);
+    }
 }

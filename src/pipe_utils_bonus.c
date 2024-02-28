@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:32:39 by ddos              #+#    #+#             */
-/*   Updated: 2024/02/28 19:49:09 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/28 23:30:14 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@ void ft_42close(int *fd)
     close(fd[1]);
     while (wait(NULL) != -1)
         status++;
-}
-
-void ft_error(int n)
-{
-    if (n == 10)
-        ft_putstr_fd("an error happen during execution", 2);
-    else if (n == 11)
-        ft_putstr_fd("an error happened during the cmds execution", 2);
 }
 
 int ft_handle_herdoc_input(char *delimiter, int fd)

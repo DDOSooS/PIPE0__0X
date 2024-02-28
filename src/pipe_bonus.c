@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 09:18:54 by ddos              #+#    #+#             */
-/*   Updated: 2024/02/28 23:15:37 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/28 23:35:47 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void ft_execute_cmd(t_cmd *cmd, char **envp, int *fd, char *output)
         return;
     args = ft_split(cmd->cmd, ' ');
     if (!args)
-        return ft_error(10);
+        return ft_error(10, "an error happen during execution");
     sh_cmd = ft_get_cmd_path(args[0], envp);
     if (!sh_cmd)
         return ft_free_mem(args);
@@ -78,7 +78,7 @@ void ft_execute_cmd(t_cmd *cmd, char **envp, int *fd, char *output)
     {
         ft_free_mem(args);
         free(sh_cmd);
-        ft_error(11);
+        ft_error(11, "an error happened during the cmds execution");
         return;
     }
 }

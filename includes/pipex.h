@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:56:14 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/27 20:34:55 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/28 23:35:09 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_42dup(int fd_in, int fd_out, int fd1, int fd2);
 char    *ft_get_cmd_path(char *cmd, char **env);
 int     ft_input_error(char *cmd, char *file);
 int	    ft_handle_herdoc_input(char *delimiter ,int fd);
-void    ft_error(int n);
+void    ft_error(int n, char *error);
 void    ft_42close(int *fd);
 
 # define BUFFER_SIZE 50

@@ -6,11 +6,19 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:22:04 by ddos              #+#    #+#             */
-/*   Updated: 2024/02/28 23:15:24 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/28 23:31:36 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+void ft_42dup(int fd_in, int fd_out, int fd1, int fd2)
+{
+	dup2(fd_in, STDIN_FILENO);
+	dup2(fd_out, STDOUT_FILENO);
+	close(fd1);
+	close(fd2);
+}
 
 int ft_handle_standard(t_cmd *cmd, int *fd, int fd1)
 {

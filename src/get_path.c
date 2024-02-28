@@ -6,7 +6,7 @@
 /*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:30:25 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/28 23:11:24 by ddos             ###   ########.fr       */
+/*   Updated: 2024/02/28 23:33:09 by ddos             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*ft_check_cmd_path(char *cmd, char *env)
 	return (full_path);
 }
 
+
 char	*ft_get_cmd_path(char *cmd, char **env)
 {
 	char	**paths;
@@ -79,7 +80,6 @@ char	*ft_get_cmd_path(char *cmd, char **env)
 		i++;
 	}
 	ft_free_mem(paths);
-	ft_putstr_fd("zsh: command not found:",2);
-	ft_putstr_fd(cmd, 2);
+	ft_error(12, cmd);
 	return (NULL);
 }

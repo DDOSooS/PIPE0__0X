@@ -12,9 +12,9 @@
 
 #include "../includes/pipex.h"
 
-char    *ft_strdup(char *str)
+char	*ft_strdup(char *str)
 {
-    int		i;
+	int		i;
 	char	*dest;
 
 	i = 0;
@@ -24,7 +24,7 @@ char    *ft_strdup(char *str)
 	while (str[i])
 	{
 		dest[i] = str[i];
-		i++;	
+		i++;
 	}
 	dest[i] = '\0';
 	return (dest);

@@ -21,32 +21,32 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <limits.h>
-#include "../ft_printf/ft_printf.h"
 
 typedef struct cmds
 {
-    char        *cmd;
-    int         in_flag;
-    struct cmds *next;
-}       t_cmd;
+	char		*cmd;
+	int			in_flag;
+	struct cmds	*next;
+}	t_cmd;
 
-int     ft_strlen(char *str);
-int     ft_strncmp(char *s1, char *s2, int n);
-char    *ft_strdup(char *str);
-void    ft_putstr_fd(char *str, int fd);
+int		ft_strlen(char *str);
+int		ft_strncmp(char *s1, char *s2, int n);
+char	*ft_strdup(char *str);
+void	ft_putstr_fd(char *str, int fd);
 void	ft_free_mem(char **str);
 char	**ft_split(char *str, char c);
 char	*ft_strjoin(char *s1, char *s2);
 
-void    ft_pipex(t_cmd *cmds, char **env, int fd_input, int fd_out);
-t_cmd	*ft_gen_cmds(int ac, char **av);
+void	ft_pipex(t_cmd *cmds, char **env, int fd_input, int fd_out);
+t_cmd	*ft_gen_cmds(int ac, char **av, int start);
 void	ft_free_cmds(t_cmd *head);
 void	ft_42dup(int fd_in, int fd_out, int fd1, int fd2);
-char    *ft_get_cmd_path(char *cmd, char **env);
-int     ft_input_error(char *cmd, char *file);
-int	    ft_handle_herdoc_input(char *delimiter ,int fd);
-void    ft_error(int n, char *error);
-void    ft_42close(int *fd);
+char	*ft_get_cmd_path(char *cmd, char **env);
+int		ft_input_error(char *cmd, char *file);
+int		ft_handle_herdoc_input(char *delimiter, int fd);
+void	ft_error(int n, char *error);
+void	ft_42close(int *fd);
+void	ft_reopen(void);
 
 # define BUFFER_SIZE 50
 

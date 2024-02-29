@@ -25,7 +25,7 @@ char	**ft_get_paths(char **env)
 			paths = ft_split(env[i], ':');
 			if (!paths)
 				return (NULL);
-            return (paths);
+			return (paths);
 		}
 		i++;
 	}
@@ -45,7 +45,7 @@ char	*ft_check_cmd_path(char *cmd, char *env)
 	{
 		free(tmp);
 		return (NULL);
-    }
+	}
 	if (access(full_path, F_OK) == -1)
 	{
 		free(full_path);
@@ -56,14 +56,13 @@ char	*ft_check_cmd_path(char *cmd, char *env)
 	return (full_path);
 }
 
-
 char	*ft_get_cmd_path(char *cmd, char **env)
 {
 	char	**paths;
 	int		i;
 	char	*cmd_path;
- 
-	if (access(cmd,  F_OK) != -1)
+
+	if (access(cmd, F_OK) != -1)
 		return (cmd);
 	paths = ft_get_paths(env);
 	if (!paths)

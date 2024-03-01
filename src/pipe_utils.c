@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: aghergho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/26 06:38:38 by ddos              #+#    #+#             */
-/*   Updated: 2024/02/28 23:34:48 by ddos             ###   ########.fr       */
+/*   Created: 2024/03/01 23:06:49 by aghergho          #+#    #+#             */
+/*   Updated: 2024/03/01 23:06:52 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,9 @@ void	ft_error(int n, char *error)
 		ft_putstr_fd(error, 2);
 	else if (n == 12)
 	{
+		ft_putstr_fd("zsh: command not found: ", 2);
 		ft_putstr_fd(error, 2);
-		ft_putstr_fd("zsh: command not found:\n", 2);
+		ft_putstr_fd("\n", 2);
 		exit(EXIT_FAILURE);
 	}
 }

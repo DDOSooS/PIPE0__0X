@@ -2,6 +2,7 @@ RED = \033[0;91m
 GREEN = \033[0;92m
 
 NAME = pipex
+NAME_BONUS = pipe_bonus
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -24,6 +25,8 @@ OBJ_BNS = $(SRC_BNS:.c=.o)
 
 all: $(NAME)
 
+bonus : $(NAME_BONUS)
+
 $(NAME) : $(OBJ)
 	$(CC) $(CFLAGS) $^  -o $@
 	@echo "$(GREEN) ________  ___  ________  _______      ___    ___  "
@@ -43,8 +46,8 @@ $(NAME) : $(OBJ)
 	@echo "$(RED) • in_file and out_file are files" 
 	@echo "$(RED) • cmd1 - cmd2 are shell commands"
 
-bonus : $(OBJ_BNS)
-	$(CC) $(CFLAGS) $^ -o $(NAME)
+$(NAME_BONUS) : $(OBJ_BNS)
+	$(CC) $(CFLAGS) $^ -o $@
 	@echo "$(GREEN) ________  ___  ________  _______      ___    ___      __     "
 	@echo "$(GREEN)|\   __  \|\  \|\   __  \|\  ___ \    |\  \  /  /|    |  |    "
 	@echo "$(GREEN)\ \  \|\  \ \  \ \  \|\  \ \   __/|   \ \  \/  / / ___|  |___ "

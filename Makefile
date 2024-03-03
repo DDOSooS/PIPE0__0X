@@ -2,7 +2,8 @@ RED = \033[0;91m
 GREEN = \033[0;92m
 
 NAME = pipex
-NAME_BONUS = pipe_bonus
+
+NAME_BONUS = pipex_bonus
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -73,7 +74,7 @@ clean:
 	$(RM) $(OBJ) $(OBJ_BNS)
 
 fclean: 
-	$(RM) $(NAME) $(OBJ) $(OBJ_BNS)
+	$(RM) $(NAME) $(OBJ) $(OBJ_BNS) $(NAME_BONUS)
 
 re: fclean all 
 

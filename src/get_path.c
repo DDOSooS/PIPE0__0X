@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: aghergho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 15:30:25 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/28 23:33:09 by ddos             ###   ########.fr       */
+/*   Created: 2024/03/01 23:04:20 by aghergho          #+#    #+#             */
+/*   Updated: 2024/03/01 23:04:55 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,25 @@ char	*ft_get_cmd_path(char *cmd, char **env)
 	ft_free_mem(paths);
 	ft_error(12, cmd);
 	return (NULL);
+}
+
+int	ft_open(char *str, int mode)
+{
+	int	fd;
+
+	if (!mode && access(str, R_OK) == -1)
+	{
+		ft_error(13, "acess denied");
+		return (-1);
+	}
+	if (mode && access(str, W_OK))
+	{
+		ft_error(13, "acess denied");
+		return (-1);
+	}
+	if (mode)
+		fd = open(str, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		fd = open(str, O_RDONLY);
+	return (fd);
 }

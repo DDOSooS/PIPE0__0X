@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: aghergho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 14:56:14 by aghergho          #+#    #+#             */
-/*   Updated: 2024/02/28 23:35:09 by ddos             ###   ########.fr       */
+/*   Created: 2024/03/01 22:59:49 by aghergho          #+#    #+#             */
+/*   Updated: 2024/03/01 22:59:54 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_putstr_fd(char *str, int fd);
 void	ft_free_mem(char **str);
 char	**ft_split(char *str, char c);
 char	*ft_strjoin(char *s1, char *s2);
+void	ft_add_back(t_cmd **head, t_cmd *new);
 
 void	ft_pipex(t_cmd *cmds, char **env, int fd_input, int fd_out);
 t_cmd	*ft_gen_cmds(int ac, char **av, int start);
@@ -47,6 +48,7 @@ int		ft_handle_herdoc_input(char *delimiter, int fd);
 void	ft_error(int n, char *error);
 void	ft_42close(int *fd);
 void	ft_reopen(void);
+int		ft_open(char *str, int mode);
 
 # define BUFFER_SIZE 50
 

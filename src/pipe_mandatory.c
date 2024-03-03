@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_mandatory.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddos <ddos@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: aghergho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 15:22:04 by ddos              #+#    #+#             */
-/*   Updated: 2024/02/28 23:31:36 by ddos             ###   ########.fr       */
+/*   Created: 2024/03/01 23:05:18 by aghergho          #+#    #+#             */
+/*   Updated: 2024/03/01 23:05:21 by aghergho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ int	main(int ac, char **av, char **env)
 	cmds = ft_gen_cmds(ac, av, 2);
 	if (!cmds)
 		return (1);
-	fd_input = open(av[1], O_RDONLY);
-	fd_out = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd_input = ft_open(av[1], 0);
+	fd_out = ft_open(av[ac -1], 1);
 	ft_pipex(cmds, env, fd_input, fd_out);
 	ft_free_cmds(cmds);
 	return (0);

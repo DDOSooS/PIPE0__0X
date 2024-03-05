@@ -82,24 +82,3 @@ char	*ft_get_cmd_path(char *cmd, char **env)
 	ft_error(12, cmd);
 	return (NULL);
 }
-
-int	ft_open(char *str, int mode)
-{
-	int	fd;
-
-	if (!mode && access(str, R_OK) == -1)
-	{
-		ft_error(13, "acess denied");
-		return (-1);
-	}
-	if (mode && access(str, W_OK))
-	{
-		ft_error(13, "acess denied");
-		return (-1);
-	}
-	if (mode)
-		fd = open(str, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else
-		fd = open(str, O_RDONLY);
-	return (fd);
-}

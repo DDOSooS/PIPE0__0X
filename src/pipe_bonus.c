@@ -27,7 +27,7 @@ int	ft_handle_stand_input(t_cmd *head, char *io_file, int flag)
 	}
 	else
 	{
-		io_fd = ft_open(io_file, 0);
+		io_fd = open(io_file, O_RDONLY);
 		if (io_fd == -1)
 		{
 			head->in_flag = -1;
@@ -51,7 +51,7 @@ int	ft_handle_output(int *fd, char *output)
 	}
 	else
 	{
-		fd_out = ft_open(output, 1);
+		fd_out = open(output, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd_out == -1)
 			return (0);
 		dup2(fd_out, STDOUT_FILENO);
